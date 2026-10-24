@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 36% 97%;
+    --foreground: 24 10% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 10% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 10% 12%;
+    --primary: 21 90% 41%;
+    --primary-foreground: 40 60% 98%;
+    --secondary: 36 26% 93%;
+    --secondary-foreground: 24 10% 18%;
+    --muted: 36 22% 94%;
+    --muted-foreground: 25 7% 42%;
+    --accent: 24 62% 94%;
+    --accent-foreground: 21 70% 32%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 45% 30%;
+    --success-foreground: 150 40% 96%;
+    --border: 32 16% 88%;
+    --input: 32 16% 86%;
+    --ring: 21 88% 46%;
+    --radius: 1.15rem;
+  }
+
+  .dark {
+    --background: 24 12% 7%;
+    --foreground: 40 20% 93%;
+    --card: 24 10% 10%;
+    --card-foreground: 40 20% 93%;
+    --popover: 24 10% 9%;
+    --popover-foreground: 40 20% 93%;
+    --primary: 21 86% 56%;
+    --primary-foreground: 24 30% 8%;
+    --secondary: 24 8% 15%;
+    --secondary-foreground: 40 18% 92%;
+    --muted: 24 8% 14%;
+    --muted-foreground: 35 9% 63%;
+    --accent: 24 10% 17%;
+    --accent-foreground: 40 20% 92%;
+    --destructive: 0 62% 52%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 42% 55%;
+    --success-foreground: 24 30% 8%;
+    --border: 24 8% 19%;
+    --input: 24 8% 22%;
+    --ring: 21 86% 56%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    letter-spacing: -0.025em;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.18);
+  }
+
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-label text-primary;
+  }
+
+  .hairline-card {
+    @apply rounded-lg border border-border bg-card shadow-soft;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.08) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}

@@ -1,35 +1,38 @@
-# Dependencies
-node_modules/
-vendor/
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
 
-# Build output
-dist/
-build/
-.next/
-.cache/
+# next.js
+/.next/
+/out/
+next-env.d.ts
 
-# Environment / secrets
-.env
-.env.*
-!.env.example
+# production
+/build
 
-# Logs
-*.log
+# misc
+.DS_Store
+Thumbs.db
+*.pem
+
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+.pnpm-debug.log*
 
-# OS junk
-.DS_Store
-Thumbs.db
-desktop.ini
+# env files
+.env
+.env*.local
 
-# Editor settings
-.vscode/
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+
+# local tooling
 .idea/
-*.swp
-
-# Temp files
-*.tmp
-*.bak
+.vscode/*
+!.vscode/extensions.json

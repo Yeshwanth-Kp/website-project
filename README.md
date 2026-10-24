@@ -30,10 +30,11 @@ npm run build       # production build
 | `/feedback` | Four-step guest form: rating, categories, comment/photo, review |
 | `/thank-you` | Confirmation, what happens next, copy-the-link prompt |
 | `/r/[code]` | QR entry point — resolves a property and redirects to `/feedback?property=…` |
-| `/admin` | Staff dashboard: KPIs, rating trend, category scores, NPS, distribution, responses table |
+| `/admin` | Staff dashboard: KPIs, property performance, guest link, rating trend, category scores, NPS, distribution, filterable responses with detail view |
 
 Demo QR links:
 
+- `/r/kumarakom-lake-resort` (featured property, default guest form)
 - `/r/willow-house`
 - `/r/casa-oliva`
 - `/r/harborview`
@@ -45,10 +46,15 @@ An unknown code renders the branded 404.
 Everything runs without a backend.
 
 - Responses are stored in `localStorage` under `stayfeedback.entries.v1`.
-- The dashboard seeds 84 deterministic demo responses on first load.
+- The dashboard seeds 84 deterministic demo responses across four properties,
+  weighted toward Kumarakom Lake Resort. Older three-property demo sets are
+  refreshed automatically while any real guest submissions are kept.
 - The guest form autosaves a draft to `stayfeedback.draft.v1` and restores it on
   reload (photos are downscaled to keep the draft small).
 - The last submission summary is passed to `/thank-you` via `sessionStorage`.
+- The admin can scope every metric and CSV export by property and date range,
+  open a response for the full note and category scores, and copy the QR route
+  for the selected property.
 
 ### Swapping in a real backend
 
@@ -87,7 +93,8 @@ components/
   ui/                   button, card, input, textarea, label, checkbox,
                         progress, badge, separator, skeleton, sonner
   feedback/             wizard, star rating, photo upload, four steps
-  admin/                dashboard, KPI cards, charts, responses table
+  admin/                dashboard, property performance, KPI cards, charts,
+                        guest link card, responses table, response detail
   marketing/            landing sections
   stars.tsx             static star display
   site-header.tsx / site-footer.tsx / theme-toggle.tsx

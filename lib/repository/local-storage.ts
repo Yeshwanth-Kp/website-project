@@ -46,7 +46,23 @@ function sortNewest(entries: FeedbackEntry[]): FeedbackEntry[] {
 
 export const localStorageRepository: FeedbackRepository = {
   async list(): Promise<FeedbackEntry[]> {
-    const entries = read();
+    let entries = read();
+
+    /*
+     * Earlier builds seeded three properties. If this browser still holds that
+     * demo set, refresh the seed rows so Kumarakom Lake Resort appears, while
+     * keeping any real responses the guest submitted here.
+     */
+    const hasSeedRows = entries.some((entry) => entry.id.startsWith("seed-"));
+    const hasKumarakom = entries.some(
+      (entry) => entry.propertyId === "kumarakom-lake-resort",
+    );
+
+    if (hasSeedRows && !hasKumarakom) {
+      const guestEntries = entries.filter((entry) => !entry.id.startsWith("seed-"));
+      entries = [...guestEntries, ...createSeedEntries()];
+      write(entries);
+    }
 
     if (entries.length === 0) {
       const seeded = createSeedEntries();

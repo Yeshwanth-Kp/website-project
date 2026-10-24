@@ -51,6 +51,17 @@ const ROOMS = [
   "Suite 3",
 ] as const;
 
+const KUMARAKOM_ROOMS = [
+  "Heritage Room 14",
+  "Heritage Room 22",
+  "Lakeview Villa 3",
+  "Lakeview Villa 7",
+  "Backwater Cottage 5",
+  "Backwater Cottage 9",
+  "Garden Villa 2",
+  "Travancore Suite",
+] as const;
+
 const COMMENTS: Record<number, readonly string[]> = {
   5: [
     "The room was spotless and the team remembered our names by day two. Breakfast on the terrace was the highlight of the trip.",
@@ -86,6 +97,43 @@ const COMMENTS: Record<number, readonly string[]> = {
     "Two hours to get into the room and no apology. The bathroom had not been cleaned properly. Very disappointing.",
     "The air conditioning failed overnight and reception did not answer. We checked out a day early.",
     "Booked a quiet room, got a street-facing one above the bar. Nobody seemed to care when we asked to move.",
+  ],
+};
+
+const KUMARAKOM_COMMENTS: Record<number, readonly string[]> = {
+  5: [
+    "Waking up to the backwaters from our villa was the whole trip. The team arranged a sunrise boat ride and remembered our coffee order by day two.",
+    "The heritage villa was beautiful, and the staff treated our anniversary like it mattered. Dinner by the lake was the highlight.",
+    "We came for two nights and left wishing we had booked four. The Ayurvedic massage and the evening music were worth the journey alone.",
+    "Every corner of the resort is considered — the meandering pool, the gardens, the quiet. Service was warm without ever being intrusive.",
+    "The houseboat pickup was seamless and our room was ready early. Easily the most restful stay we have had in India.",
+    "Breakfast by the backwater, fresh appam and stew, and a team that greeted us by name. Faultless.",
+  ],
+  4: [
+    "Beautiful setting and genuinely thoughtful service. The bathroom in our villa could use a refresh, but the views and breakfast more than made up for it.",
+    "The resort is stunning and the backwater pool is unlike anywhere else. A little slow at check-in, but the room and gardens were lovely.",
+    "Very good stay. The Ayurvedic spa was excellent, though our villa was a fair walk from the main restaurant. We would still return.",
+    "Quiet, green and beautifully kept. Wi-Fi was patchy in the villa, but the team fixed it the same evening.",
+    "Lovely heritage property with excellent food. The evening performance was a highlight; the room was a touch dark for reading.",
+    "Great stay overall. Breakfast was generous and the birdlife at dawn was wonderful. Would have liked a later checkout.",
+  ],
+  3: [
+    "A beautiful property, but the villa felt tired in places and the restaurant was slow at dinner. The setting is exceptional.",
+    "Good stay overall. The backwater views are the reason to come, though the spa pricing felt high and the Wi-Fi was unreliable.",
+    "The gardens and pool are lovely, but our room was far from reception and the buggy took a long time. Friendly team.",
+    "Nice heritage feel, but housekeeping arrived late and the air conditioning struggled in the afternoon heat.",
+    "The setting earns the rating; the service did not always match it. Breakfast was excellent, dinner less so.",
+  ],
+  2: [
+    "Our villa was not ready on arrival and the air conditioning never cooled properly. The team apologised but it took two calls.",
+    "The property is beautiful, but our room smelled damp and the restaurant ran out of options by nine. Not what we expected for the price.",
+    "Slow check-in and a long wait for the buggy. The backwaters are stunning, but the stay did not feel worth what we paid.",
+    "Wi-Fi barely worked in the villa and the shower ran cold. The setting deserves better maintenance.",
+  ],
+  1: [
+    "Three calls and two hours before we got into our villa, and no one took ownership. A disappointing start to a trip we had planned for months.",
+    "The air conditioning failed overnight and reception did not answer. We left a day early.",
+    "Our room was not cleaned properly and the noise from the pool went on past midnight. Nobody followed up.",
   ],
 };
 
@@ -173,21 +221,30 @@ function emailFor(name: string): string {
 }
 
 /**
- * Deterministic demo data: 84 responses across the last 90 days.
- * Runs once on first load so the dashboard is never an empty shell.
+ * Deterministic demo data: 84 responses across the last 90 days, weighted
+ * toward Kumarakom Lake Resort. Runs once on first load so the dashboard is
+ * never an empty shell.
  */
 export function createSeedEntries(now: number = Date.now()): FeedbackEntry[] {
   const random = mulberry32(20_261_024);
-  const properties = ["willow-house", "casa-oliva", "harborview"] as const;
+  const properties = [
+    "kumarakom-lake-resort",
+    "willow-house",
+    "kumarakom-lake-resort",
+    "casa-oliva",
+    "harborview",
+  ] as const;
   const entries: FeedbackEntry[] = [];
 
   for (let index = 0; index < 84; index += 1) {
     const rating = ratingFor(random);
-    const propertyId = properties[index % properties.length] ?? "willow-house";
+    const propertyId = properties[index % properties.length] ?? "kumarakom-lake-resort";
+    const isKumarakom = propertyId === "kumarakom-lake-resort";
     const name = pick(NAMES, random);
     const daysAgo = Math.floor(random() * 90);
     const createdAt = new Date(now - daysAgo * DAY);
     createdAt.setHours(8 + Math.floor(random() * 13), Math.floor(random() * 60), 0, 0);
+    const comments = isKumarakom ? KUMARAKOM_COMMENTS : COMMENTS;
 
     entries.push({
       id: `seed-${index + 1}`,
@@ -204,10 +261,12 @@ export function createSeedEntries(now: number = Date.now()): FeedbackEntry[] {
         value: categoryScore(rating, random),
       },
       tags: tagsFor(rating, random),
-      comment: pick(COMMENTS[rating] ?? COMMENTS[3]!, random),
+      comment: pick(comments[rating] ?? comments[3]!, random),
       guestName: name,
       guestEmail: random() < 0.45 ? emailFor(name) : null,
-      roomNumber: random() < 0.7 ? pick(ROOMS, random) : null,
+      roomNumber: random() < 0.7
+        ? pick(isKumarakom ? KUMARAKOM_ROOMS : ROOMS, random)
+        : null,
       photoDataUrl: null,
       consent: true,
     });

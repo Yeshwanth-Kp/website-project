@@ -36,7 +36,7 @@ export function CategoryBreakdown({ data }: { data: CategoryPoint[] }) {
         </p>
       </div>
 
-      <div className="mt-4 h-[236px] w-full">
+      <div className="mt-4 h-[236px] w-full text-primary">
         {hasData ? (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
@@ -76,8 +76,8 @@ export function CategoryBreakdown({ data }: { data: CategoryPoint[] }) {
                 {data.map((category) => (
                   <Cell
                     key={category.key}
-                    fill={CHART_COLORS.primary}
-                    fillOpacity={0.35 + category.score / 12}
+                    fill="currentColor"
+                    fillOpacity={0.45 + category.score / 12}
                   />
                 ))}
               </Bar>

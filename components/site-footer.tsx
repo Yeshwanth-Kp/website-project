@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { PROPERTIES } from "@/lib/properties";
+
 const PRODUCT_LINKS = [
   { href: "/feedback", label: "Leave feedback" },
   { href: "/admin", label: "Staff dashboard" },
@@ -44,30 +46,16 @@ export function SiteFooter() {
         <div>
           <p className="eyebrow mb-4">Try it</p>
           <ul className="space-y-2.5 text-sm text-muted-foreground">
-            <li>
-              <Link
-                href="/r/willow-house"
-                className="focus-ring rounded transition-colors hover:text-foreground"
-              >
-                Willow House QR link
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/r/casa-oliva"
-                className="focus-ring rounded transition-colors hover:text-foreground"
-              >
-                Casa Oliva QR link
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/r/harborview"
-                className="focus-ring rounded transition-colors hover:text-foreground"
-              >
-                Harborview QR link
-              </Link>
-            </li>
+            {PROPERTIES.map((property) => (
+              <li key={property.id}>
+                <Link
+                  href={`/r/${property.code}`}
+                  className="focus-ring rounded transition-colors hover:text-foreground"
+                >
+                  {property.name} QR link
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

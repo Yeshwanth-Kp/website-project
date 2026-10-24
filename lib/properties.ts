@@ -6,6 +6,13 @@ import type { Property } from "./types";
  */
 export const PROPERTIES: Property[] = [
   {
+    id: "kumarakom-lake-resort",
+    code: "kumarakom-lake-resort",
+    name: "Kumarakom Lake Resort",
+    city: "Kumarakom, Kerala",
+    invitationsSent: 540,
+  },
+  {
     id: "willow-house",
     code: "willow-house",
     name: "Willow House",

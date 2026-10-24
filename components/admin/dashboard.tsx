@@ -6,8 +6,10 @@ import * as React from "react";
 import { toast } from "sonner";
 
 import { CategoryBreakdown } from "@/components/admin/category-breakdown";
+import { GuestLinkCard } from "@/components/admin/guest-link-card";
 import { KpiCards } from "@/components/admin/kpi-cards";
 import { NpsPanel } from "@/components/admin/nps-panel";
+import { PropertyPerformance } from "@/components/admin/property-performance";
 import { RatingDistribution } from "@/components/admin/rating-distribution";
 import { RatingTrendChart } from "@/components/admin/rating-trend-chart";
 import { ResponsesTable } from "@/components/admin/responses-table";
@@ -19,10 +21,16 @@ import {
   RANGE_OPTIONS,
   buildDashboard,
   filterByRange,
+  invitationsInRange,
   type RangeKey,
 } from "@/lib/analytics";
 import { downloadCsv, entriesToCsv } from "@/lib/csv";
-import { invitationsFor, PROPERTIES } from "@/lib/properties";
+import {
+  DEFAULT_PROPERTY,
+  getPropertyById,
+  invitationsFor,
+  PROPERTIES,
+} from "@/lib/properties";
 import { repository } from "@/lib/repository";
 import type { FeedbackEntry } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -63,8 +71,12 @@ export function Dashboard() {
   }, [entries, propertyId]);
 
   const invitations = React.useMemo(
-    () => invitationsFor(propertyId === "all" ? [] : [propertyId]),
-    [propertyId],
+    () =>
+      invitationsInRange(
+        invitationsFor(propertyId === "all" ? [] : [propertyId]),
+        range,
+      ),
+    [propertyId, range],
   );
 
   const dashboard = React.useMemo(
@@ -77,6 +89,14 @@ export function Dashboard() {
     [propertyEntries, range],
   );
 
+  const activeProperty = React.useMemo(
+    () =>
+      propertyId === "all"
+        ? DEFAULT_PROPERTY
+        : getPropertyById(propertyId) ?? DEFAULT_PROPERTY,
+    [propertyId],
+  );
+
   const rangeLabel =
     RANGE_OPTIONS.find((option) => option.key === range)?.label ?? "Last 30 days";
 
@@ -86,7 +106,7 @@ export function Dashboard() {
       return;
     }
 
-    const scope = propertyId === "all" ? "all-properties" : propertyId;
+    const scope = propertyId === "all" ? "all-properties" : activeProperty.code;
     downloadCsv(
       `stayfeedback-${scope}-${range}.csv`,
       entriesToCsv(rangeEntries),
@@ -135,7 +155,12 @@ export function Dashboard() {
             <p className="eyebrow">Staff view</p>
             <h1 className="mt-2 text-3xl sm:text-4xl">Guest insights</h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              {rangeLabel} · {propertyId === "all" ? "all properties" : "one property"}
+              {propertyId === "all"
+                ? "All properties"
+                : `${activeProperty.name} · ${activeProperty.city}`}
+              {" · "}
+              {rangeLabel} · {rangeEntries.length}{" "}
+              {rangeEntries.length === 1 ? "response" : "responses"}
             </p>
           </div>
 
@@ -217,6 +242,18 @@ export function Dashboard() {
           <div className="mt-8 space-y-4">
             <KpiCards kpis={dashboard.kpis} />
 
+            <PropertyPerformance
+              entries={entries}
+              range={range}
+              propertyId={propertyId}
+              onSelect={setPropertyId}
+            />
+
+            <GuestLinkCard
+              property={activeProperty}
+              isFallback={propertyId === "all"}
+            />
+
             <div className="grid gap-4 lg:grid-cols-3">
               <div className="lg:col-span-2">
                 <RatingTrendChart data={dashboard.trend} />
@@ -229,7 +266,11 @@ export function Dashboard() {
               <RatingDistribution data={dashboard.distribution} />
             </div>
 
-            <ResponsesTable entries={rangeEntries} />
+            <ResponsesTable
+              key={`${propertyId}-${range}`}
+              entries={rangeEntries}
+              showProperty={propertyId === "all"}
+            />
 
             <p className="pb-2 text-center text-xs text-muted-foreground">
               Demo data lives in this browser.{" "}

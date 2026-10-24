@@ -1,9 +1,11 @@
+import { getPropertyById } from "./properties";
 import type { FeedbackEntry } from "./types";
 
 const HEADERS = [
   "id",
   "created_at",
   "property_id",
+  "property_name",
   "overall_rating",
   "sentiment",
   "nps",
@@ -34,6 +36,7 @@ export function entriesToCsv(entries: FeedbackEntry[]): string {
       entry.id,
       entry.createdAt,
       entry.propertyId,
+      getPropertyById(entry.propertyId)?.name ?? entry.propertyId,
       entry.overallRating,
       entry.sentiment,
       entry.nps,

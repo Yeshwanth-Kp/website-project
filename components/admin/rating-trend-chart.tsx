@@ -41,7 +41,7 @@ export function RatingTrendChart({ data }: { data: TrendPoint[] }) {
         </span>
       </div>
 
-      <div className="mt-5 h-[260px] w-full">
+      <div className="mt-5 h-[260px] w-full text-primary">
         {hasData ? (
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
@@ -85,7 +85,7 @@ export function RatingTrendChart({ data }: { data: TrendPoint[] }) {
               <Line
                 type="monotone"
                 dataKey="rating"
-                stroke={CHART_COLORS.primary}
+                stroke="currentColor"
                 strokeWidth={2}
                 dot={false}
                 activeDot={{ r: 4, strokeWidth: 0 }}

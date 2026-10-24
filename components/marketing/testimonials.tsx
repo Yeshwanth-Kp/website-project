@@ -8,14 +8,14 @@ const TESTIMONIALS = [
     quote:
       "We used to get four comments a month. Now we get four a day, and they are specific enough to act on. The housekeeping notes alone paid for the year.",
     name: "Elena Rossi",
-    role: "General Manager, Casa Oliva",
+    role: "General Manager, Kumarakom Lake Resort",
     rating: 5,
   },
   {
     quote:
       "The form is the first one guests actually finish. I watch the counter at the desk and they are done before their taxi arrives.",
     name: "Marcus Feld",
-    role: "Front of House, Harborview",
+    role: "Front of House, Casa Oliva",
     rating: 5,
   },
   {

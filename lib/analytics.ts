@@ -1,5 +1,10 @@
 import { CATEGORY_META } from "./rating";
-import { CATEGORY_KEYS, type CategoryKey, type FeedbackEntry } from "./types";
+import {
+  CATEGORY_KEYS,
+  type CategoryKey,
+  type FeedbackEntry,
+  type Property,
+} from "./types";
 
 const DAY = 86_400_000;
 
@@ -61,6 +66,17 @@ export interface DashboardData {
   nps: NpsSummary;
 }
 
+export interface PropertyPerformancePoint {
+  property: Property;
+  responses: number;
+  share: number;
+  averageRating: number;
+  nps: number | null;
+  responseRate: number;
+  /** Responses rated 3 or below, the queue that may need a reply. */
+  attention: number;
+}
+
 function average(values: number[]): number {
   if (values.length === 0) return 0;
   return values.reduce((total, value) => total + value, 0) / values.length;
@@ -70,6 +86,17 @@ export function rangeDays(range: RangeKey): number | null {
   if (range === "30d") return 30;
   if (range === "90d") return 90;
   return null;
+}
+
+/**
+ * `invitationsSent` is a 90-day demo denominator. Scale it for the 30-day
+ * window so the response-rate KPI compares like with like.
+ */
+export function invitationsInRange(
+  invitationsSent: number,
+  range: RangeKey,
+): number {
+  return range === "30d" ? Math.round(invitationsSent / 3) : invitationsSent;
 }
 
 export function filterByRange(
@@ -114,6 +141,40 @@ export function buildNps(entries: FeedbackEntry[]): NpsSummary {
     passiveShare,
     detractorShare,
   };
+}
+
+export function buildPropertyPerformance(
+  entries: FeedbackEntry[],
+  properties: Property[],
+  range: RangeKey,
+  now: number = Date.now(),
+): PropertyPerformancePoint[] {
+  const periodTotal = filterByRange(entries, range, now).length;
+
+  return properties.map((property) => {
+    const scoped = filterByRange(
+      entries.filter((entry) => entry.propertyId === property.id),
+      range,
+      now,
+    );
+    const nps = buildNps(scoped);
+    const invitations = invitationsInRange(property.invitationsSent, range);
+
+    return {
+      property,
+      responses: scoped.length,
+      share: periodTotal ? scoped.length / periodTotal : 0,
+      averageRating: Number(
+        average(scoped.map((entry) => entry.overallRating)).toFixed(2),
+      ),
+      nps: nps.score,
+      responseRate:
+        invitations > 0
+          ? Math.min(100, (scoped.length / invitations) * 100)
+          : 0,
+      attention: scoped.filter((entry) => entry.overallRating <= 3).length,
+    };
+  });
 }
 
 export function buildTrend(

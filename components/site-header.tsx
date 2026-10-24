@@ -16,21 +16,58 @@ const NAV_LINKS = [
   { href: "/admin", label: "Dashboard" },
 ] as const;
 
-export function SiteHeader({ minimal = false }: { minimal?: boolean }) {
+interface SiteHeaderProps {
+  minimal?: boolean;
+  /** Overlay a fixed, transparent header on the landing hero until scroll. */
+  overVideo?: boolean;
+}
+
+export function SiteHeader({ minimal = false, overVideo = false }: SiteHeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (!overVideo) return;
+
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [overVideo]);
+
+  const solid = !overVideo || scrolled || open;
+  const onDark = overVideo && !solid;
+
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur-md">
+    <header
+      className={cn(
+        "z-40 border-b transition-colors duration-200",
+        overVideo ? "fixed inset-x-0 top-0" : "sticky top-0",
+        solid
+          ? "border-border/70 bg-background/85 backdrop-blur-md"
+          : "border-transparent bg-transparent",
+      )}
+    >
+      {onDark && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/45 to-transparent"
+        />
+      )}
+
       <div className="container flex h-16 items-center justify-between gap-4">
         <Link
           href="/"
-          className="focus-ring group inline-flex items-center gap-2.5 rounded-lg"
+          className={cn(
+            "focus-ring group inline-flex items-center gap-2.5 rounded-lg",
+            onDark ? "text-white" : "text-foreground",
+          )}
           aria-label="StayFeedback home"
         >
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary font-display text-lg font-semibold text-primary-foreground shadow-sm transition-transform duration-200 group-hover:-rotate-3">
@@ -48,7 +85,12 @@ export function SiteHeader({ minimal = false }: { minimal?: boolean }) {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="focus-ring rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                  className={cn(
+                    "focus-ring rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                    onDark
+                      ? "text-white/75 hover:bg-white/10 hover:text-white"
+                      : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                  )}
                 >
                   {link.label}
                 </Link>
@@ -56,13 +98,23 @@ export function SiteHeader({ minimal = false }: { minimal?: boolean }) {
             </nav>
 
             <div className="flex items-center gap-2">
-              <ThemeToggle />
+              <ThemeToggle
+                className={cn(
+                  onDark &&
+                    "border-white/25 bg-white/10 text-white/85 hover:border-white/40 hover:bg-white/15 hover:text-white",
+                )}
+              />
               <Button asChild size="sm" className="hidden sm:inline-flex">
                 <Link href="/feedback">Leave feedback</Link>
               </Button>
               <button
                 type="button"
-                className="focus-ring grid h-10 w-10 place-items-center rounded-full border border-border text-foreground md:hidden"
+                className={cn(
+                  "focus-ring grid h-10 w-10 place-items-center rounded-full border transition-colors md:hidden",
+                  onDark
+                    ? "border-white/25 text-white hover:bg-white/10"
+                    : "border-border text-foreground",
+                )}
                 aria-expanded={open}
                 aria-controls="mobile-nav"
                 aria-label={open ? "Close menu" : "Open menu"}

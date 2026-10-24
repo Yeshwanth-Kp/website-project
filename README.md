@@ -91,6 +91,8 @@ components/
   marketing/            landing sections
   stars.tsx             static star display
   site-header.tsx / site-footer.tsx / theme-toggle.tsx
+public/
+  media/                Kumarakom hero film + poster frame
 lib/
   types.ts              domain model
   feedback-schema.ts    Zod schema + step field map
@@ -110,6 +112,9 @@ lib/
   inverted light theme.
 - Motion is 150–250 ms ease-out with an 8 px rise, plus a spring on star
   selection. `prefers-reduced-motion` is respected everywhere.
+- The landing hero uses a muted, looping film from Kumarakom Lake Resort with a
+  poster frame, a pointer-driven 3D card tilt, and depth-layered QR/sentiment
+  chips. Reduced-motion visitors get the poster only; the video unmounts.
 - Accessibility: labelled controls, radiogroup keyboard support on the star
   rating, visible focus rings, `aria-live` counters and errors, skip-free
   landmark structure, and a single tab stop per step.

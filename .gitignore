@@ -1,38 +1,20 @@
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
+# Dependencies and generated output
+node_modules/
+_site/
+dist/
 
-# next.js
-/.next/
-/out/
-next-env.d.ts
+# Local environment files (the browser config is committed on purpose)
+.env
+.env.*
+!.env.example
 
-# production
-/build
-
-# misc
+# Local editor and OS files
+.vscode/
+.idea/
 .DS_Store
 Thumbs.db
-*.pem
+*.log
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files
-.env
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-
-# local tooling
-.idea/
-.vscode/*
-!.vscode/extensions.json
+# Temporary local files
+.tmp-media/
+.tmp-qa/

@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#081e18" />
+    <title>Guest Feedback · Kumarakom Lake Resort</title>
+    <meta
+      name="description"
+      content="Share a private note about your stay at Kumarakom Lake Resort, or rate your experience and tell other travellers about it on Google."
+    />
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/images/favicon.svg"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/images/kumarakom-lake-resort.jpg"
+    />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/guest.css" />
+    <script type="module" src="assets/js/guest.js"></script>
+  </head>
+
+  <body class="guest-page">
+    <a class="skip-link" href="#feedback">Skip to feedback</a>
+
+    <div class="hero on-dark">
+      <header class="site-header">
+        <div class="shell site-header__inner">
+          <a
+            class="brand"
+            href="./"
+            aria-label="K Kumarakom Lake Resort — guest feedback home"
+          >
+            <span class="brand__mark" aria-hidden="true">K</span>
+            <span class="brand__type">
+              <span class="brand__name">Kumarakom</span>
+              <span class="brand__sub">Lake Resort</span>
+            </span>
+          </a>
+          <p class="site-header__location">Kumarakom · Kerala, India</p>
+        </div>
+      </header>
+
+      <main id="main-content" class="hero__main" tabindex="-1">
+        <div class="shell hero__grid">
+          <section class="hero__intro" aria-labelledby="welcome-title">
+            <p class="eyebrow">A note for our guests</p>
+            <h1 id="welcome-title">
+              Every stay<br />
+              <em>has a story.</em>
+            </h1>
+            <p class="hero__lead">
+              Thank you for choosing Kumarakom Lake Resort. A few honest words
+              help us make every arrival feel as considered as yours.
+            </p>
+            <p class="hero__note">
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="8.5" />
+                <path d="M12 7.5V12l3 2" />
+              </svg>
+              Takes less than a minute
+            </p>
+          </section>
+
+          <section
+            class="feedback-card"
+            id="feedback"
+            tabindex="-1"
+            aria-labelledby="feedback-title"
+          >
+            <div class="card__head">
+              <p class="eyebrow">Your experience</p>
+              <span class="private-chip">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="5" y="10" width="14" height="10" rx="2" />
+                  <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                </svg>
+                Private
+              </span>
+            </div>
+
+            <div id="rating-view">
+              <h2 id="feedback-title">How was your stay?</h2>
+              <p class="card__intro">
+                Choose a rating from one to five stars.
+              </p>
+
+              <div class="rating-block">
+                <div
+                  class="stars"
+                  id="star-rating"
+                  role="radiogroup"
+                  aria-labelledby="feedback-title"
+                  aria-describedby="rating-caption"
+                  aria-orientation="horizontal"
+                >
+                  <button
+                    class="star"
+                    type="button"
+                    role="radio"
+                    aria-checked="false"
+                    aria-label="1 star — very disappointing"
+                    data-rating="1"
+                    tabindex="0"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      focusable="false"
+                    >
+                      <path
+                        d="m12 2.75 2.88 5.84 6.45.94-4.67 4.55 1.1 6.42L12 17.47 6.24 20.5l1.1-6.42-4.67-4.55 6.45-.94L12 2.75Z"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="star"
+                    type="button"
+                    role="radio"
+                    aria-checked="false"
+                    aria-label="2 stars — below expectations"
+                    data-rating="2"
+                    tabindex="-1"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      focusable="false"
+                    >
+                      <path
+                        d="m12 2.75 2.88 5.84 6.45.94-4.67 4.55 1.1 6.42L12 17.47 6.24 20.5l1.1-6.42-4.67-4.55 6.45-.94L12 2.75Z"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="star"
+                    type="button"
+                    role="radio"
+                    aria-checked="false"
+                    aria-label="3 stars — just okay"
+                    data-rating="3"
+                    tabindex="-1"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      focusable="false"
+                    >
+                      <path
+                        d="m12 2.75 2.88 5.84 6.45.94-4.67 4.55 1.1 6.42L12 17.47 6.24 20.5l1.1-6.42-4.67-4.55 6.45-.94L12 2.75Z"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="star"
+                    type="button"
+                    role="radio"
+                    aria-checked="false"
+                    aria-label="4 stars — lovely stay"
+                    data-rating="4"
+                    tabindex="-1"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      focusable="false"
+                    >
+                      <path
+                        d="m12 2.75 2.88 5.84 6.45.94-4.67 4.55 1.1 6.42L12 17.47 6.24 20.5l1.1-6.42-4.67-4.55 6.45-.94L12 2.75Z"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="star"
+                    type="button"
+                    role="radio"
+                    aria-checked="false"
+                    aria-label="5 stars — exceptional stay"
+                    data-rating="5"
+                    tabindex="-1"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      focusable="false"
+                    >
+                      <path
+                        d="m12 2.75 2.88 5.84 6.45.94-4.67 4.55 1.1 6.42L12 17.47 6.24 20.5l1.1-6.42-4.67-4.55 6.45-.94L12 2.75Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <p
+                  class="rating-caption"
+                  id="rating-caption"
+                  aria-live="polite"
+                >
+                  Tap a star to begin
+                </p>
+              </div>
+
+              <div
+                class="feedback-panel high-rating"
+                id="high-rating-panel"
+                hidden
+                aria-labelledby="high-rating-title"
+              >
+                <div class="high-rating__seal" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M12 20.2s-7.4-4.4-7.4-9.4a4.1 4.1 0 0 1 7.4-2.4 4.1 4.1 0 0 1 7.4 2.4c0 5-7.4 9.4-7.4 9.4Z"
+                    />
+                  </svg>
+                </div>
+                <h3 class="panel-heading" id="high-rating-title">
+                  That is lovely to hear.
+                </h3>
+                <p class="panel-copy" id="high-rating-copy">
+                  Thank you. We will now open Google so you can share your
+                  experience with other travellers.
+                </p>
+                <a
+                  class="button button--primary"
+                  id="google-review-link"
+                  href="#"
+                  rel="noopener"
+                >
+                  Continue to Google
+                  <svg
+                    class="button__arrow"
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </a>
+                <p class="high-rating__note" id="redirect-note" role="status">
+                  If you are not redirected shortly, use the button above.
+                </p>
+              </div>
+
+              <form
+                class="feedback-panel private-form"
+                id="private-feedback-form"
+                aria-labelledby="private-form-title"
+                novalidate
+                hidden
+              >
+                <div>
+                  <h3 class="panel-heading" id="private-form-title">
+                    Tell us a little more.
+                  </h3>
+                  <p class="panel-copy">
+                    Your note goes straight to our resort team. Name, email and
+                    comments are all optional.
+                  </p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="guest-name">
+                    Name
+                    <span class="field__optional">Optional</span>
+                  </label>
+                  <input
+                    id="guest-name"
+                    name="name"
+                    type="text"
+                    maxlength="120"
+                    autocomplete="name"
+                    placeholder="Your name"
+                  />
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="guest-email">
+                    Email
+                    <span class="field__optional">Optional</span>
+                  </label>
+                  <input
+                    id="guest-email"
+                    name="email"
+                    type="email"
+                    maxlength="254"
+                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                    autocomplete="email"
+                    inputmode="email"
+                    spellcheck="false"
+                    placeholder="you@example.com"
+                    aria-describedby="email-hint"
+                  />
+                  <p class="field__hint" id="email-hint">
+                    Only if you would like us to follow up with you.
+                  </p>
+                </div>
+
+                <div class="field">
+                  <label class="field__label" for="guest-comments">
+                    Comments
+                    <span class="field__optional">Optional</span>
+                  </label>
+                  <textarea
+                    id="guest-comments"
+                    name="comments"
+                    rows="4"
+                    maxlength="4000"
+                    placeholder="What stayed with you? What could we have done better?"
+                  ></textarea>
+                </div>
+
+                <div class="hp-field" aria-hidden="true">
+                  <label for="guest-website">Leave this field blank</label>
+                  <input
+                    id="guest-website"
+                    name="website"
+                    type="text"
+                    tabindex="-1"
+                    autocomplete="off"
+                  />
+                </div>
+
+                <p
+                  class="form-message"
+                  id="feedback-status"
+                  role="status"
+                  aria-live="polite"
+                  hidden
+                ></p>
+
+                <button
+                  class="button button--primary"
+                  id="feedback-submit"
+                  type="submit"
+                >
+                  <span id="feedback-submit-label">Send private feedback</span>
+                  <svg
+                    class="button__arrow"
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </button>
+
+                <p class="privacy-note">
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="5" y="10" width="14" height="10" rx="2" />
+                    <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                  </svg>
+                  Shared only with the Kumarakom team. Never posted publicly.
+                </p>
+              </form>
+
+              <p class="card__fineprint">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12 21s7-3.2 7-9V5.4L12 2.8 5 5.4V12c0 5.8 7 9 7 9Z"
+                  />
+                  <path d="m9.2 11.8 1.9 1.9 3.8-4" />
+                </svg>
+                Your details stay private. We never publish a guest's name,
+                email or private comments.
+              </p>
+
+              <noscript>
+                <p class="form-message is-error noscript-message">
+                  Please enable JavaScript to rate your stay or send private
+                  feedback.
+                </p>
+              </noscript>
+            </div>
+
+            <div
+              class="confirmation"
+              id="confirmation-panel"
+              aria-labelledby="confirmation-title"
+              hidden
+            >
+              <div class="confirmation__mark" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m5.5 12.5 4.2 4.2 8.8-9.2" />
+                </svg>
+              </div>
+              <p class="eyebrow">Feedback received</p>
+              <h2
+                class="panel-heading"
+                id="confirmation-title"
+                tabindex="-1"
+              >
+                Thank you for telling us.
+              </h2>
+              <p class="panel-copy" id="confirmation-copy">
+                Your note has been shared privately with our resort team. If you
+                left an email address, we may be in touch.
+              </p>
+              <p class="confirmation__close">You may now close this page.</p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div class="shell site-footer__inner">
+        <p>
+          <span class="site-footer__brand">Kumarakom Lake Resort</span>
+          <span class="site-footer__dot">·</span>
+          <span>© <span id="copyright-year">2026</span></span>
+        </p>
+        <p class="site-footer__meta">
+          <span>Private guest feedback</span>
+          <span class="site-footer__dot">·</span>
+          <a href="admin/">Staff access</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#fffdf8" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <title>Staff Portal · Kumarakom Lake Resort</title>
+    <meta
+      name="description"
+      content="Approved staff sign-in for private guest feedback at Kumarakom Lake Resort."
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../assets/images/favicon.svg"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/admin.css" />
+    <script type="module" src="../assets/js/admin.js"></script>
+  </head>
+
+  <body class="admin-page">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="admin-header">
+      <div class="shell admin-header__inner">
+        <a
+          class="brand"
+          href="../"
+          aria-label="K Kumarakom Lake Resort — guest site"
+        >
+          <span class="brand__mark" aria-hidden="true">K</span>
+          <span class="brand__type">
+            <span class="brand__name">Kumarakom</span>
+            <span class="brand__sub">Lake Resort</span>
+          </span>
+        </a>
+
+        <div class="admin-header__side">
+          <span class="staff-tag">Staff portal</span>
+          <div class="admin-account" id="admin-account" hidden>
+            <span class="admin-account__email" id="admin-email"></span>
+            <button
+              class="button button--outline"
+              id="signout-button"
+              type="button"
+            >
+              Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <!-- Sign in ---------------------------------------------------------->
+      <section class="login-view" id="login-view" aria-labelledby="login-title">
+        <div class="login-visual" aria-hidden="true">
+          <div class="login-visual__inner">
+            <p class="login-visual__kicker">Kumarakom Lake Resort</p>
+            <p class="login-visual__quote">
+              Listening is the first act of hospitality.
+            </p>
+            <p class="login-visual__copy">
+              A private space for the resort team to read, reflect and respond.
+            </p>
+          </div>
+        </div>
+
+        <div class="login-panel">
+          <div class="login-box">
+            <p class="eyebrow">Private access</p>
+            <h1 id="login-title">Staff sign in</h1>
+            <p class="login-box__intro">
+              Review the notes guests have chosen to share privately with our
+              team.
+            </p>
+
+            <div
+              class="form-notice is-error"
+              id="config-notice"
+              role="alert"
+              hidden
+            ></div>
+
+            <form class="login-form" id="login-form" novalidate>
+              <div class="admin-field">
+                <label for="staff-email">Email address</label>
+                <input
+                  id="staff-email"
+                  name="email"
+                  type="email"
+                  autocomplete="username"
+                  inputmode="email"
+                  spellcheck="false"
+                  placeholder="you@kumarakom.com"
+                  required
+                />
+              </div>
+
+              <div class="admin-field">
+                <label for="staff-password">Password</label>
+                <input
+                  id="staff-password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="Your password"
+                  required
+                />
+              </div>
+
+              <div
+                class="form-notice"
+                id="login-message"
+                role="alert"
+                aria-live="assertive"
+                hidden
+              ></div>
+
+              <button
+                class="button button--primary"
+                id="login-submit"
+                type="submit"
+              >
+                <span id="login-submit-label">Sign in</span>
+              </button>
+            </form>
+
+            <p class="login-help">
+              Approved staff only. Staff accounts are created by the resort
+              manager. There is no public admin sign-up.
+            </p>
+
+            <a class="login-back" href="../">← Return to guest site</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dashboard -------------------------------------------------------->
+      <section
+        class="dashboard"
+        id="dashboard-view"
+        aria-labelledby="dashboard-title"
+        hidden
+      >
+        <div class="shell">
+          <div class="dashboard__head">
+            <div>
+              <p class="eyebrow">Guest feedback</p>
+              <h1 class="dashboard__title" id="dashboard-title" tabindex="-1">
+                Private notes
+              </h1>
+              <p class="dashboard__lede">
+                Notes left by guests who rated their stay one to three stars.
+                These are visible only to approved resort staff.
+              </p>
+            </div>
+            <div class="dashboard__head-actions">
+              <button
+                class="button button--outline"
+                id="refresh-button"
+                type="button"
+              >
+                Refresh
+              </button>
+            </div>
+          </div>
+
+          <div class="stats" aria-label="Feedback summary">
+            <article class="stat">
+              <p class="stat__label">Total notes</p>
+              <p class="stat__value" id="total-count">—</p>
+              <p class="stat__note">All private guest feedback</p>
+            </article>
+            <article class="stat stat--attention">
+              <p class="stat__label">Awaiting review</p>
+              <p class="stat__value" id="pending-count">—</p>
+              <p class="stat__note">Needs a member of the team</p>
+            </article>
+            <article class="stat">
+              <p class="stat__label">Reviewed</p>
+              <p class="stat__value" id="reviewed-count">—</p>
+              <p class="stat__note">Read and marked by staff</p>
+            </article>
+          </div>
+
+          <section class="board" aria-labelledby="board-title">
+            <div class="board__head">
+              <h2 class="board__title" id="board-title" tabindex="-1">
+                Guest notes
+              </h2>
+              <p
+                class="board__sub"
+                id="results-count"
+                aria-live="polite"
+              ></p>
+            </div>
+
+            <div class="filters" role="search" aria-label="Search guest feedback">
+              <div class="filter filter--search">
+                <label for="search-input">Search</label>
+                <div class="search-wrap">
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                  >
+                    <circle cx="11" cy="11" r="6.5" />
+                    <path d="m16 16 4 4" />
+                  </svg>
+                  <input
+                    id="search-input"
+                    type="search"
+                    placeholder="Name, email or comment"
+                    autocomplete="off"
+                  />
+                </div>
+              </div>
+
+              <div class="filter">
+                <label for="rating-filter">Rating</label>
+                <select id="rating-filter">
+                  <option value="">All ratings</option>
+                  <option value="1">1 star</option>
+                  <option value="2">2 stars</option>
+                  <option value="3">3 stars</option>
+                </select>
+              </div>
+
+              <div class="filter">
+                <label for="status-filter">Status</label>
+                <select id="status-filter">
+                  <option value="">All statuses</option>
+                  <option value="new">Needs review</option>
+                  <option value="reviewed">Reviewed</option>
+                </select>
+              </div>
+            </div>
+
+            <p
+              class="board__status"
+              id="board-status"
+              role="status"
+              aria-live="polite"
+            >
+              <span class="loading-bar" id="loading-bar" aria-hidden="true"></span>
+              <span id="board-status-text">Loading feedback…</span>
+            </p>
+
+            <div
+              class="feedback-list"
+              id="feedback-list"
+              aria-label="Private guest feedback"
+            ></div>
+
+            <div class="empty-state" id="empty-state" hidden>
+              <div class="empty-state__mark" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M4 7h16v11H4z" />
+                  <path d="m5 8 7 5 7-5" />
+                </svg>
+              </div>
+              <h3 id="empty-title">No notes here yet</h3>
+              <p id="empty-copy">
+                New private feedback will appear here as guests send it.
+              </p>
+            </div>
+
+            <div
+              class="error-state"
+              id="error-state"
+              role="alert"
+              hidden
+            >
+              <div class="error-state__mark" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="8.5" />
+                  <path d="M12 8v5M12 16.2v.1" />
+                </svg>
+              </div>
+              <h3>We could not load the feedback</h3>
+              <p id="error-copy">
+                Check your connection and try again. If this continues, ask the
+                site administrator to review the Supabase setup.
+              </p>
+              <button
+                class="button button--outline"
+                id="retry-button"
+                type="button"
+              >
+                Try again
+              </button>
+            </div>
+
+            <div class="pagination" id="pagination" hidden>
+              <p class="pagination__summary" id="pagination-summary"></p>
+              <div class="pagination__controls">
+                <button
+                  class="button button--outline"
+                  id="previous-button"
+                  type="button"
+                >
+                  Previous
+                </button>
+                <button
+                  class="button button--outline"
+                  id="next-button"
+                  type="button"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="admin-footer">
+      <div class="shell admin-footer__inner">
+        <p>Kumarakom Lake Resort · Private staff area</p>
+        <p><a href="../">Return to guest site</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
